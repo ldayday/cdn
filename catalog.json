@@ -69,6 +69,12 @@
         "files": [
           "/libs/jquery/3.7.0/jquery.min.js"
         ]
+      },
+      {
+        "version": "3.6.4",
+        "files": [
+          "/libs/jquery/3.6.4/jquery.min.js"
+        ]
       }
     ]
   },
