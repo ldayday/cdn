@@ -1,22 +1,22 @@
-name: Auto Update CDN Libs
+name: Update CDN Libs
 on:
-  # 1. 每天北京时间早上 8 点自动检查 (UTC 0:00)
+  # 1. 每天北京时间早上 8 点检查一次 (只有带 ^ 的会自动更新)
   schedule:
     - cron: '0 0 * * *'
-  # 2. 你手动改了配置也能触发
+  # 2. 当你修改 package.json 或 build.js 时立即触发
   push:
-    paths: ['package.json', 'build.js', 'libs.config.js']
-  # 3. 允许你在网页上点 "Run workflow" 按钮手动触发
+    paths: ['package.json', 'build.js']
+  # 3. 允许你手动点击运行
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  update-and-build:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
       - name: Setup Node.js
@@ -24,30 +24,15 @@ jobs:
         with:
           node-version: '18'
 
-      # --- 关键步骤开始 ---
-      
-      # 1. 安装自动升级工具，并强制把 package.json 更新到最新版
-      - name: Check for updates
+      - name: Install & Build
+        # 这里只运行 install，严格遵守 package.json 的锁
         run: |
-          # 安装 npm-check-updates 工具
-          npm install -g npm-check-updates
-          # -u 参数会直接修改 package.json 文件里的版本号为最新
-          ncu -u
-          
-      # 2. 按照新的版本号下载包
-      - name: Install dependencies
-        run: npm install
+          npm install
+          node build.js
 
-      # 3. 运行你的搬运脚本 (这一步会把新下的包存入 libs)
-      - name: Run build script
-        run: node build.js
-        
-      # --- 关键步骤结束 ---
-
-      # 4. 把更新后的 package.json 和新下载的 libs 提交回仓库
-      - name: Commit and Push changes
+      - name: Save Changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "Auto-update: upgrade libraries to latest versions"
-          # 关键：同时提交 libs 文件夹和被修改过的 package.json
-          file_pattern: 'libs/* package.json catalog.json'
+          commit_message: "Update: process new libraries"
+          # 仅提交生成的库文件和目录账本
+          file_pattern: 'libs/* catalog.json'
