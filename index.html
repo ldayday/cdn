@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的静态资源库</title>
+    <style>
+        :root { --primary: #006eff; --bg: #f7f8fa; --card: #fff; --text: #333; }
+        body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        
+        /* 头部 */
+        header { text-align: center; margin-bottom: 40px; padding-top: 20px; }
+        h1 { margin: 0; color: var(--text); font-size: 2rem; }
+        p.subtitle { color: #666; margin-top: 10px; }
+
+        /* 搜索框 */
+        .search-wrapper { position: relative; margin-bottom: 30px; }
+        input#search { width: 100%; padding: 15px 20px; border: 2px solid #ddd; border-radius: 12px; font-size: 16px; outline: none; box-sizing: border-box; transition: 0.3s; }
+        input#search:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(0,110,255,0.1); }
+
+        /* 卡片列表 */
+        .lib-card { background: var(--card); border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .lib-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px; }
+        .lib-name { font-size: 1.4rem; font-weight: 700; color: var(--primary); }
+        
+        /* 版本选择器 */
+        select.ver-select { padding: 5px 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
+
+        /* 文件列表 */
+        .file-row { display: flex; align-items: center; background: #f9f9f9; padding: 10px; border-radius: 6px; margin-bottom: 8px; font-family: monospace; font-size: 0.9rem; }
+        .file-path { flex-grow: 1; word-break: break-all; color: #555; margin-right: 10px; }
+        
+        /* 按钮 */
+        .btn { border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; margin-left: 5px; transition: 0.2s; }
+        .btn-copy-url { background: #e0e0e0; color: #333; }
+        .btn-copy-tag { background: var(--primary); color: white; }
+        .btn:hover { opacity: 0.8; }
+        
+        /* 提示 */
+        #toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: white; padding: 10px 20px; border-radius: 50px; opacity: 0; transition: 0.3s; pointer-events: none; }
+        #toast.show { opacity: 1; bottom: 40px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>📦 Static Libs</h1>
+        <p class="subtitle">历史版本永久存档 · 自动同步 GitHub</p>
+    </header>
+
+    <div class="search-wrapper">
+        <input type="text" id="search" placeholder="搜索库名 (如 jquery, vue)...">
+    </div>
+
+    <div id="app">
+        <div style="text-align: center; color: #999;">正在读取 catalog.json...</div>
+    </div>
+</div>
+
+<div id="toast">已复制!</div>
+
+<script>
+    let catalog = [];
+    const app = document.getElementById('app');
+    const toast = document.getElementById('toast');
+
+    // 1. 获取账本数据
+    fetch('./catalog.json')
+        .then(res => res.json())
+        .then(data => {
+            catalog = data;
+            render(catalog);
+        })
+        .catch(err => {
+            app.innerHTML = '<div style="text-align:center;color:red">无法读取资源列表，请确保 GitHub Action 已运行成功。</div>';
+        });
+
+    // 2. 渲染函数
+    function render(list) {
+        if(list.length === 0) {
+            app.innerHTML = '<div style="text-align:center;color:#999">未找到匹配的库</div>';
+            return;
+        }
+        
+        app.innerHTML = list.map((lib, index) => {
+            // 默认显示最新的版本
+            const latestVer = lib.versions[0]; 
+            // 生成版本下拉框选项
+            const options = lib.versions.map((v, i) => `<option value="${i}">${v.version}</option>`).join('');
+            
+            return `
+            <div class="lib-card" id="card-${index}">
+                <div class="lib-header">
+                    <span class="lib-name">${lib.name}</span>
+                    <select class="ver-select" onchange="changeVersion(${index}, this.value)">
+                        ${options}
+                    </select>
+                </div>
+                <div class="file-list" id="files-${index}">
+                    ${renderFiles(latestVer.files)}
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    // 3. 渲染具体版本的文件列表
+    function renderFiles(files) {
+        return files.map(file => {
+            const fullUrl = window.location.origin + file;
+            let tag = fullUrl;
+            if(file.endsWith('.js')) tag = `<script src="${fullUrl}"><\/script>`;
+            if(file.endsWith('.css')) tag = `<link rel="stylesheet" href="${fullUrl}">`;
+
+            return `
+            <div class="file-row">
+                <span class="file-path">${file}</span>
+                <button class="btn btn-copy-url" onclick="copy('${fullUrl}')">复制链接</button>
+                <button class="btn btn-copy-tag" onclick="copy('${tag}')">复制标签</button>
+            </div>`;
+        }).join('');
+    }
+
+    // 4. 切换版本
+    window.changeVersion = (cardIndex, verIndex) => {
+        const lib = catalog[cardIndex]; // 注意这里要用当前过滤后的 list 还是全局 catalog，简单起见假设未过滤
+        // 重新查找当前显示的是哪个库（处理搜索后的索引问题）
+        // 实际上为了简单，搜索时会重绘所有卡片，所以下面重写逻辑
+    };
+
+    // 修正：切换版本逻辑（配合搜索）
+    window.changeVersion = (cardIndex, verIndex) => {
+        // 由于 innerHTML 重新渲染，我们需要重新获取数据源
+        // 这里做一个简单的 DOM 操作，不重新渲染整个列表
+        const card = document.getElementById(`card-${cardIndex}`);
+        const libName = card.querySelector('.lib-name').innerText;
+        const libData = catalog.find(l => l.name === libName);
+        const selectedVer = libData.versions[verIndex];
+        
+        const fileListDiv = document.getElementById(`files-${cardIndex}`);
+        fileListDiv.innerHTML = renderFiles(selectedVer.files);
+    }
+
+    // 5. 搜索功能
+    document.getElementById('search').addEventListener('input', (e) => {
+        const key = e.target.value.toLowerCase();
+        const filtered = catalog.filter(lib => lib.name.toLowerCase().includes(key));
+        
+        // 重新渲染，注意这里的 index 会重置，所以 changeVersion 的逻辑要适配
+        // 为了简化，我们在 render 时重新生成 HTML
+        render(filtered);
+    });
+
+    // 6. 复制功能
+    window.copy = (text) => {
+        navigator.clipboard.writeText(text).then(() => {
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        });
+    }
+</script>
+</body>
+</html>
