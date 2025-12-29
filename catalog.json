@@ -1,0 +1,47 @@
+[
+  {
+    "name": "axios",
+    "versions": [
+      {
+        "version": "1.13.2",
+        "files": [
+          "/libs/axios/1.13.2/axios.min.js"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "bootstrap",
+    "versions": [
+      {
+        "version": "5.3.8",
+        "files": [
+          "/libs/bootstrap/5.3.8/bootstrap.bundle.min.js",
+          "/libs/bootstrap/5.3.8/bootstrap.min.css"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "jquery",
+    "versions": [
+      {
+        "version": "3.7.1",
+        "files": [
+          "/libs/jquery/3.7.1/jquery.min.js"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "vue",
+    "versions": [
+      {
+        "version": "3.5.26",
+        "files": [
+          "/libs/vue/3.5.26/vue.min.js"
+        ]
+      }
+    ]
+  }
+]
