@@ -5,10 +5,10 @@
     "build": "node build.js"
   },
   "dependencies": {
-    "fs-extra": "^11.2.0",
+    "fs-extra": "^11.3.3",
     "jquery": "^3.7.1",
-    "axios": "^1.6.7",
-    "vue": "^3.4.21",
-    "bootstrap": "^5.3.3"
+    "axios": "^1.13.2",
+    "vue": "^3.5.26",
+    "bootstrap": "^5.3.8"
   }
 }
