@@ -6,27 +6,26 @@
     <title>轻云静态资源库</title>
     <style>
         :root { --primary: #006eff; --bg: #f7f8fa; --card: #fff; --text: #333; }
-        body { font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+        body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; line-height: 1.5; }
         .container { max-width: 900px; margin: 0 auto; }
         header { text-align: center; margin-bottom: 40px; padding-top: 20px; }
-        h1 { margin: 0; color: var(--text); font-size: 2.2rem; letter-spacing: -1px; }
-        p.subtitle { color: #666; margin-top: 10px; font-size: 0.95rem; }
-        .search-wrapper { position: relative; margin-bottom: 30px; }
-        input#search { width: 100%; padding: 16px 24px; border: 2px solid #ddd; border-radius: 16px; font-size: 16px; outline: none; box-sizing: border-box; transition: 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-        input#search:focus { border-color: var(--primary); box-shadow: 0 4px 20px rgba(0,110,255,0.15); }
-        .lib-card { background: var(--card); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05); }
-        .lib-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding-bottom: 18px; margin-bottom: 18px; }
-        .lib-name { font-size: 1.5rem; font-weight: 800; color: var(--text); text-transform: capitalize; }
-        select.ver-select { padding: 6px 12px; border-radius: 8px; border: 1px solid #ddd; font-size: 14px; background: #fff; cursor: pointer; outline: none; }
-        .file-row { display: flex; align-items: center; background: #f8f9fa; padding: 12px 16px; border-radius: 10px; margin-bottom: 10px; font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 0.85rem; border: 1px solid #eee; }
-        .file-path { flex-grow: 1; word-break: break-all; color: #444; margin-right: 15px; }
+        h1 { margin: 0; font-size: 2.2rem; font-weight: 800; color: #1a1a1a; }
+        p.subtitle { color: #666; margin-top: 8px; }
+        .search-wrapper { margin-bottom: 30px; }
+        input#search { width: 100%; padding: 16px 24px; border: 2px solid #ddd; border-radius: 16px; font-size: 16px; outline: none; box-sizing: border-box; transition: 0.3s; }
+        input#search:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(0,110,255,0.1); }
+        .lib-card { background: var(--card); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+        .lib-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 15px; }
+        .lib-name { font-size: 1.4rem; font-weight: 700; color: var(--primary); }
+        select.ver-select { padding: 6px 10px; border-radius: 8px; border: 1px solid #ddd; outline: none; }
+        .file-row { display: flex; align-items: center; background: #f9f9f9; padding: 12px; border-radius: 8px; margin-bottom: 8px; font-family: monospace; font-size: 0.85rem; border: 1px solid #eee; }
+        .file-path { flex-grow: 1; word-break: break-all; color: #555; margin-right: 15px; }
         .btn-group { display: flex; gap: 8px; }
-        .btn { border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; transition: 0.2s; white-space: nowrap; }
-        .btn-copy-url { background: #eee; color: #444; }
+        .btn { border: none; padding: 7px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; transition: 0.2s; white-space: nowrap; }
+        .btn-copy-url { background: #e0e0e0; color: #333; }
         .btn-copy-tag { background: var(--primary); color: white; }
-        .btn:hover { transform: translateY(-1px); filter: brightness(0.9); }
-        .btn:active { transform: translateY(0); }
-        #toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 12px 24px; border-radius: 12px; opacity: 0; transition: 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28); pointer-events: none; z-index: 100; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .btn:hover { opacity: 0.8; transform: translateY(-1px); }
+        #toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 10px 24px; border-radius: 50px; opacity: 0; transition: 0.3s; pointer-events: none; z-index: 100; }
         #toast.show { opacity: 1; bottom: 50px; }
     </style>
 </head>
@@ -35,71 +34,66 @@
 <div class="container">
     <header>
         <h1>📦 Static Libs</h1>
-        <p class="subtitle">极速 CDN 资源库 · 历史版本永久托管</p>
+        <p class="subtitle">历史版本永久存储 · 基于 GitHub Actions 自动构建</p>
     </header>
 
     <div class="search-wrapper">
-        <input type="text" id="search" placeholder="搜索资源库名称...">
+        <input type="text" id="search" placeholder="搜索库名 (例如 bootstrap)...">
     </div>
 
-    <div id="app">
-        <div style="text-align: center; color: #999; padding: 40px;">🚀 正在同步账本数据...</div>
-    </div>
+    <div id="app">加载中...</div>
 </div>
 
-<div id="toast">已成功复制到剪贴板</div>
+<div id="toast">已复制到剪贴板</div>
 
 <script>
     let catalog = [];
     const app = document.getElementById('app');
     const toast = document.getElementById('toast');
 
-    // 获取数据
-    fetch('./catalog.json?t=' + Date.now())
+    // 1. 获取账本
+    fetch('./catalog.json?v=' + Date.now())
         .then(res => res.json())
         .then(data => {
             catalog = data;
             render(catalog);
         })
-        .catch(err => {
-            app.innerHTML = '<div style="text-align:center;color:red;padding:40px;">❌ 账本读取失败，请检查 catalog.json 是否生成。</div>';
-        });
+        .catch(() => app.innerHTML = '读取账本失败，请检查构建状态。');
 
+    // 2. 渲染主列表
     function render(list) {
         if(list.length === 0) {
-            app.innerHTML = '<div style="text-align:center;color:#999;padding:40px;">📭 未找到相关的资源库</div>';
+            app.innerHTML = '未找到匹配资源';
             return;
         }
-        
-        app.innerHTML = list.map((lib, index) => {
-            const latestVer = lib.versions[0]; 
-            const options = lib.versions.map((v, i) => `<option value="${i}">${v.version}</option>`).join('');
+        app.innerHTML = list.map((lib, idx) => {
+            const versions = lib.versions;
+            const latest = versions[0];
+            const options = versions.map((v, i) => `<option value="${i}">${v.version}</option>`).join('');
             
             return `
-            <div class="lib-card" data-index="${index}">
+            <div class="lib-card" data-libname="${lib.name}">
                 <div class="lib-header">
                     <span class="lib-name">${lib.name}</span>
-                    <select class="ver-select" onchange="window.updateCardFiles(this, ${index})">
+                    <select class="ver-select" onchange="window.updateVersion(this)">
                         ${options}
                     </select>
                 </div>
                 <div class="file-list">
-                    ${renderFiles(latestVer.files)}
+                    ${renderFiles(latest.files)}
                 </div>
             </div>`;
         }).join('');
     }
 
+    // 3. 渲染文件行
     function renderFiles(files) {
-        // 过滤掉字体文件和其他杂项，只显示主要文件
+        // 只过滤出 JS 和 CSS，排除字体文件夹下的子文件显示（保持 UI 简洁）
         const mainFiles = files.filter(f => f.endsWith('.js') || f.endsWith('.css'));
-        
         return mainFiles.map(file => {
             const fullUrl = window.location.origin + file;
-            let tag = fullUrl;
-            if(file.endsWith('.js')) tag = `<script src="${fullUrl}"><\/script>`;
-            if(file.endsWith('.css')) tag = `<link rel="stylesheet" href="${fullUrl}">`;
-
+            const tag = file.endsWith('.js') ? `<script src="${fullUrl}"><\/script>` : `<link rel="stylesheet" href="${fullUrl}">`;
+            
             return `
             <div class="file-row">
                 <span class="file-path">${file}</span>
@@ -111,49 +105,34 @@
         }).join('');
     }
 
-    // 更新特定卡片的文件列表
-    window.updateCardFiles = (selectEl, cardIndex) => {
-        const libName = selectEl.closest('.lib-card').querySelector('.lib-name').innerText;
+    // 4. 切换版本 (精准修复版)
+    window.updateVersion = (selectEl) => {
+        const card = selectEl.closest('.lib-card');
+        const libName = card.getAttribute('data-libname');
         const libData = catalog.find(l => l.name === libName);
         const selectedVer = libData.versions[selectEl.value];
-        const fileListDiv = selectEl.closest('.lib-card').querySelector('.file-list');
-        fileListDiv.innerHTML = renderFiles(selectedVer.files);
+        card.querySelector('.file-list').innerHTML = renderFiles(selectedVer.files);
     };
 
-    // 事件委托处理点击复制
-    document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('btn')) {
+    // 5. 复制功能
+    document.addEventListener('click', e => {
+        if(e.target.classList.contains('btn')) {
             const content = e.target.getAttribute('data-content');
-            if (content) {
-                copyToClipboard(content);
-            }
+            const el = document.createElement('textarea');
+            el.value = content;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
         }
     });
 
-    function copyToClipboard(text) {
-        const textArea = document.createElement("textarea");
-        textArea.value = text;
-        document.body.appendChild(textArea);
-        textArea.select();
-        try {
-            document.execCommand('copy');
-            showToast();
-        } catch (err) {
-            console.error('复制失败', err);
-        }
-        document.body.removeChild(textArea);
-    }
-
-    function showToast() {
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2000);
-    }
-
-    // 搜索
-    document.getElementById('search').addEventListener('input', (e) => {
-        const key = e.target.value.toLowerCase();
-        const filtered = catalog.filter(lib => lib.name.toLowerCase().includes(key));
-        render(filtered);
+    // 6. 搜索
+    document.getElementById('search').addEventListener('input', e => {
+        const val = e.target.value.toLowerCase();
+        render(catalog.filter(l => l.name.toLowerCase().includes(val)));
     });
 </script>
 </body>
