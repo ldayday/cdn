@@ -93,6 +93,12 @@
         "files": [
           "/libs/jquery/3.6.1/jquery.min.js"
         ]
+      },
+      {
+        "version": "3.6.0",
+        "files": [
+          "/libs/jquery/3.6.0/jquery.min.js"
+        ]
       }
     ]
   },
