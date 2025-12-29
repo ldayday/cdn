@@ -5,19 +5,14 @@
     "build": "node build.js"
   },
   "dependencies": {
-    "fs-extra": "^11.3.3",
+    "fs-extra": "^11.2.0",
     "jquery": "^3.7.1",
-    "axios": "^1.13.2",
-    "vue": "^3.5.26",
-    "bootstrap": "^5.3.8",
-    "fs-extra": "^11.3.3",
+    "axios": "^1.7.9", 
+    "vue": "^3.5.13",
+    "bootstrap": "5.3.3",
     "bootstrap-icons": "1.13.1",
-    "swiper": "12.0.3",
+    "swiper": "8.0.6",
     "parallax-js": "3.1.0",
-    "@fortawesome/fontawesome-free": "^6.5.1",
-    "@fortawesome/fontawesome-free": "^7.1.0"
-
-    
-
+    "@fortawesome/fontawesome-free": "^6.5.1"
   }
 }
