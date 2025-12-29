@@ -1,0 +1,29 @@
+name: Update CDN Libs
+on:
+  push:
+    paths: ['package.json', 'build.js'] # 改配置时自动触发
+  workflow_dispatch: # 允许手动点击按钮触发
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with: { node-version: '18' }
+        
+      - name: Install & Build
+        run: |
+          npm install
+          node build.js
+          
+      - name: Save Changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Auto-update: libs archive"
+          file_pattern: 'libs/* catalog.json'
