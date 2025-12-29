@@ -1,0 +1,14 @@
+{
+  "name": "my-cdn",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "dependencies": {
+    "fs-extra": "^11.2.0",
+    "jquery": "^3.7.1",
+    "axios": "^1.6.7",
+    "vue": "^3.4.21",
+    "bootstrap": "^5.3.3"
+  }
+}
