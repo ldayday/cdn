@@ -76,3 +76,9 @@ if (fs.existsSync(distDir)) {
     });
 }
 fs.writeJsonSync('catalog.json', catalog, { spaces: 2 });
+// 在脚本最后加这句，看看 node_modules 里到底有没有下下来
+const faPath = path.join(__dirname, 'node_modules', '@fortawesome/fontawesome-free');
+console.log('FA 路径检查:', faPath, fs.existsSync(faPath) ? '存在' : '不存在');
+if (fs.existsSync(faPath)) {
+    console.log('FA 目录内容:', fs.readdirSync(faPath));
+}
