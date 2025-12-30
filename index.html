@@ -25,7 +25,6 @@
         .btn-copy-url { background: #e0e0e0; color: #333; }
         .btn-copy-tag { background: var(--primary); color: white; }
         .btn:hover { opacity: 0.8; transform: translateY(-1px); }
-        .map-file { opacity: 0.6; } /* .map 文件稍微变淡 */
         #toast { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 10px 24px; border-radius: 50px; opacity: 0; transition: 0.3s; pointer-events: none; z-index: 100; }
         #toast.show { opacity: 1; bottom: 50px; }
     </style>
@@ -35,7 +34,7 @@
 <div class="container">
     <header>
         <h1>📦 Static Libs</h1>
-        <p class="subtitle">历史版本永久存储 · 现已支持 Source Map 调试文件</p>
+        <p class="subtitle">历史版本永久存储 · 自动同步 NPM 资源</p>
     </header>
 
     <div class="search-wrapper">
@@ -52,6 +51,7 @@
     const app = document.getElementById('app');
     const toast = document.getElementById('toast');
 
+    // 1. 获取账本
     fetch('./catalog.json?v=' + Date.now())
         .then(res => res.json())
         .then(data => {
@@ -60,14 +60,16 @@
         })
         .catch(() => app.innerHTML = '读取账本失败');
 
+    // 2. 渲染主列表
     function render(list) {
         if(list.length === 0) {
             app.innerHTML = '未找到匹配资源';
             return;
         }
         app.innerHTML = list.map((lib, idx) => {
-            const latest = lib.versions[0];
-            const options = lib.versions.map((v, i) => `<option value="${i}">${v.version}</option>`).join('');
+            const versions = lib.versions;
+            const latest = versions[0];
+            const options = versions.map((v, i) => `<option value="${i}">${v.version}</option>`).join('');
             
             return `
             <div class="lib-card" data-libname="${lib.name}">
@@ -84,8 +86,9 @@
         }).join('');
     }
 
+    // 3. 渲染文件行
     function renderFiles(files) {
-        // 允许显示 js, css, map 文件，并过滤掉文件夹层级
+        // 过滤出需要显示的类型
         const filtered = files.filter(f => f.endsWith('.js') || f.endsWith('.css') || f.endsWith('.map'));
         
         return filtered.map(file => {
@@ -93,6 +96,7 @@
             const isMap = file.endsWith('.map');
             let tag = '';
             
+            // 只有非 map 文件才生成标签代码
             if (!isMap) {
                 tag = file.endsWith('.js') 
                     ? `<script src="${fullUrl}"><\/script>` 
@@ -100,7 +104,7 @@
             }
             
             return `
-            <div class="file-row ${isMap ? 'map-file' : ''}">
+            <div class="file-row">
                 <span class="file-path">${file}</span>
                 <div class="btn-group">
                     <button class="btn btn-copy-url" data-content="${fullUrl}">复制链接</button>
@@ -110,6 +114,7 @@
         }).join('');
     }
 
+    // 4. 切换版本
     window.updateVersion = (selectEl) => {
         const card = selectEl.closest('.lib-card');
         const libName = card.getAttribute('data-libname');
@@ -118,6 +123,7 @@
         card.querySelector('.file-list').innerHTML = renderFiles(selectedVer.files);
     };
 
+    // 5. 复制功能
     document.addEventListener('click', e => {
         if(e.target.classList.contains('btn')) {
             const content = e.target.getAttribute('data-content');
@@ -132,6 +138,7 @@
         }
     });
 
+    // 6. 搜索
     document.getElementById('search').addEventListener('input', e => {
         const val = e.target.value.toLowerCase();
         render(catalog.filter(l => l.name.toLowerCase().includes(val)));
