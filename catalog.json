@@ -103,8 +103,10 @@
         "files": [
           "/libs/jquery/3.7.1/jquery.js",
           "/libs/jquery/3.7.1/jquery.min.js",
+          "/libs/jquery/3.7.1/jquery.min.map",
           "/libs/jquery/3.7.1/jquery.slim.js",
-          "/libs/jquery/3.7.1/jquery.slim.min.js"
+          "/libs/jquery/3.7.1/jquery.slim.min.js",
+          "/libs/jquery/3.7.1/jquery.slim.min.map"
         ]
       },
       {
@@ -206,7 +208,9 @@
           "/libs/swiper/11.2.10/swiper-bundle.css",
           "/libs/swiper/11.2.10/swiper-bundle.js",
           "/libs/swiper/11.2.10/swiper-bundle.min.css",
-          "/libs/swiper/11.2.10/swiper-bundle.min.js"
+          "/libs/swiper/11.2.10/swiper-bundle.min.js",
+          "/libs/swiper/11.2.10/swiper-bundle.min.js.map",
+          "/libs/swiper/11.2.10/swiper-bundle.min.mjs.map"
         ]
       }
     ]
