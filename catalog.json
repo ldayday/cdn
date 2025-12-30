@@ -6,7 +6,19 @@
         "version": "fontawesome-free",
         "files": [
           "/libs/@fortawesome/fontawesome-free/6.7.2/fontawesome.min.css",
-          "/libs/@fortawesome/fontawesome-free/7.1.0/fontawesome.min.css"
+          "/libs/@fortawesome/fontawesome-free/6.7.2/webfonts/fa-brands-400.ttf",
+          "/libs/@fortawesome/fontawesome-free/6.7.2/webfonts/fa-brands-400.woff2",
+          "/libs/@fortawesome/fontawesome-free/6.7.2/webfonts/fa-regular-400.ttf",
+          "/libs/@fortawesome/fontawesome-free/6.7.2/webfonts/fa-regular-400.woff2",
+          "/libs/@fortawesome/fontawesome-free/6.7.2/webfonts/fa-solid-900.ttf",
+          "/libs/@fortawesome/fontawesome-free/6.7.2/webfonts/fa-solid-900.woff2",
+          "/libs/@fortawesome/fontawesome-free/6.7.2/webfonts/fa-v4compatibility.ttf",
+          "/libs/@fortawesome/fontawesome-free/6.7.2/webfonts/fa-v4compatibility.woff2",
+          "/libs/@fortawesome/fontawesome-free/7.1.0/fontawesome.min.css",
+          "/libs/@fortawesome/fontawesome-free/7.1.0/webfonts/fa-brands-400.woff2",
+          "/libs/@fortawesome/fontawesome-free/7.1.0/webfonts/fa-regular-400.woff2",
+          "/libs/@fortawesome/fontawesome-free/7.1.0/webfonts/fa-solid-900.woff2",
+          "/libs/@fortawesome/fontawesome-free/7.1.0/webfonts/fa-v4compatibility.woff2"
         ]
       }
     ]
@@ -28,8 +40,17 @@
       {
         "version": "5.3.8",
         "files": [
+          "/libs/bootstrap/5.3.8/bootstrap-grid.min.css",
+          "/libs/bootstrap/5.3.8/bootstrap-grid.rtl.min.css",
+          "/libs/bootstrap/5.3.8/bootstrap-reboot.min.css",
+          "/libs/bootstrap/5.3.8/bootstrap-reboot.rtl.min.css",
+          "/libs/bootstrap/5.3.8/bootstrap-utilities.min.css",
+          "/libs/bootstrap/5.3.8/bootstrap-utilities.rtl.min.css",
           "/libs/bootstrap/5.3.8/bootstrap.bundle.min.js",
-          "/libs/bootstrap/5.3.8/bootstrap.min.css"
+          "/libs/bootstrap/5.3.8/bootstrap.esm.min.js",
+          "/libs/bootstrap/5.3.8/bootstrap.min.css",
+          "/libs/bootstrap/5.3.8/bootstrap.min.js",
+          "/libs/bootstrap/5.3.8/bootstrap.rtl.min.css"
         ]
       }
     ]
@@ -56,12 +77,34 @@
     ]
   },
   {
+    "name": "font-awesome",
+    "versions": [
+      {
+        "version": "6.7.2",
+        "files": [
+          "/libs/font-awesome/6.7.2/all.min.css",
+          "/libs/font-awesome/6.7.2/webfonts/fa-brands-400.ttf",
+          "/libs/font-awesome/6.7.2/webfonts/fa-brands-400.woff2",
+          "/libs/font-awesome/6.7.2/webfonts/fa-regular-400.ttf",
+          "/libs/font-awesome/6.7.2/webfonts/fa-regular-400.woff2",
+          "/libs/font-awesome/6.7.2/webfonts/fa-solid-900.ttf",
+          "/libs/font-awesome/6.7.2/webfonts/fa-solid-900.woff2",
+          "/libs/font-awesome/6.7.2/webfonts/fa-v4compatibility.ttf",
+          "/libs/font-awesome/6.7.2/webfonts/fa-v4compatibility.woff2"
+        ]
+      }
+    ]
+  },
+  {
     "name": "jquery",
     "versions": [
       {
         "version": "3.7.1",
         "files": [
-          "/libs/jquery/3.7.1/jquery.min.js"
+          "/libs/jquery/3.7.1/jquery.js",
+          "/libs/jquery/3.7.1/jquery.min.js",
+          "/libs/jquery/3.7.1/jquery.slim.js",
+          "/libs/jquery/3.7.1/jquery.slim.min.js"
         ]
       },
       {
@@ -120,6 +163,7 @@
       {
         "version": "3.1.0",
         "files": [
+          "/libs/parallax-js/3.1.0/parallax.js",
           "/libs/parallax-js/3.1.0/parallax.min.js"
         ]
       }
@@ -159,6 +203,8 @@
       {
         "version": "11.2.10",
         "files": [
+          "/libs/swiper/11.2.10/swiper-bundle.css",
+          "/libs/swiper/11.2.10/swiper-bundle.js",
           "/libs/swiper/11.2.10/swiper-bundle.min.css",
           "/libs/swiper/11.2.10/swiper-bundle.min.js"
         ]
