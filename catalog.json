@@ -27,6 +27,12 @@
     "name": "axios",
     "versions": [
       {
+        "version": "1.13.5",
+        "files": [
+          "/libs/axios/1.13.5/axios.min.js"
+        ]
+      },
+      {
         "version": "1.13.4",
         "files": [
           "/libs/axios/1.13.4/axios.min.js"
