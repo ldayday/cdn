@@ -291,6 +291,12 @@
     "name": "vue",
     "versions": [
       {
+        "version": "3.5.38",
+        "files": [
+          "/libs/vue/3.5.38/vue.min.js"
+        ]
+      },
+      {
         "version": "3.5.35",
         "files": [
           "/libs/vue/3.5.35/vue.min.js"
