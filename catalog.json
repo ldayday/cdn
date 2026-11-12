@@ -146,6 +146,22 @@
     "name": "bootstrap",
     "versions": [
       {
+        "version": "5.3.9",
+        "files": [
+          "/libs/bootstrap/5.3.9/bootstrap-grid.min.css",
+          "/libs/bootstrap/5.3.9/bootstrap-grid.rtl.min.css",
+          "/libs/bootstrap/5.3.9/bootstrap-reboot.min.css",
+          "/libs/bootstrap/5.3.9/bootstrap-reboot.rtl.min.css",
+          "/libs/bootstrap/5.3.9/bootstrap-utilities.min.css",
+          "/libs/bootstrap/5.3.9/bootstrap-utilities.rtl.min.css",
+          "/libs/bootstrap/5.3.9/bootstrap.bundle.min.js",
+          "/libs/bootstrap/5.3.9/bootstrap.esm.min.js",
+          "/libs/bootstrap/5.3.9/bootstrap.min.css",
+          "/libs/bootstrap/5.3.9/bootstrap.min.js",
+          "/libs/bootstrap/5.3.9/bootstrap.rtl.min.css"
+        ]
+      },
+      {
         "version": "5.3.8",
         "files": [
           "/libs/bootstrap/5.3.8/bootstrap-grid.min.css",
