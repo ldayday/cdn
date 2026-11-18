@@ -223,6 +223,17 @@
     "name": "jquery",
     "versions": [
       {
+        "version": "3.8.0",
+        "files": [
+          "/libs/jquery/3.8.0/jquery.js",
+          "/libs/jquery/3.8.0/jquery.min.js",
+          "/libs/jquery/3.8.0/jquery.min.map",
+          "/libs/jquery/3.8.0/jquery.slim.js",
+          "/libs/jquery/3.8.0/jquery.slim.min.js",
+          "/libs/jquery/3.8.0/jquery.slim.min.map"
+        ]
+      },
+      {
         "version": "3.7.1",
         "files": [
           "/libs/jquery/3.7.1/jquery.js",
